@@ -19,6 +19,14 @@ requirements = (
     "tqdm",
     "opencv-python",
     "scikit-image"
+    "pycocotools",
+    "torch",
+    "colorama",
+    "numpy",
+    "tensorboardX",
+    "tensorflow",
+    "matplotlib",
+    "scipy"
 )
 
 def get_extension():

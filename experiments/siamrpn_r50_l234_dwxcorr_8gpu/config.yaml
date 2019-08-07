@@ -17,11 +17,14 @@ ADJUST:
         out_channels: [256, 256, 256]
 
 RPN:
+    RPN: true
     TYPE: 'MultiRPN'
     KWARGS:
         anchor_num: 5
         in_channels: [256, 256, 256]
         weighted: true
+FCOS:
+    FCOS: false
 
 MASK:
     MASK: false

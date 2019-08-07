@@ -29,8 +29,8 @@ class ModelBuilder(nn.Module):
             self.neck = get_neck(cfg.ADJUST.TYPE,
                                  **cfg.ADJUST.KWARGS)
 
-        if cfg.FCOS.FCOS:
-            self.fcos = get_fcos(cfg, cfg.BACKBONE.OUTPUT_CHANNEL_SIZE)
+        # if cfg.FCOS.FCOS:
+        #     self.fcos = get_fcos(cfg, cfg.BACKBONE.OUTPUT_CHANNEL_SIZE)
         
         # build rpn head
         if cfg.RPN.RPN:

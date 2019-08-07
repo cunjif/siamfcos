@@ -108,3 +108,10 @@ testing_dataset/*
 training_dataset/coco/coco2017/*
 training_dataset/coco/crop511/*
 .vscode/*
+logs/*
+git 
+pretrained_models/*
+!pretrained_models/__init__.py
+/training_dataset/coco/train2017.json
+/training_dataset/coco/val2017.json
+train.sh
