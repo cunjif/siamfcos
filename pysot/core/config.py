@@ -212,6 +212,15 @@ __C.RPN.KWARGS = CN(new_allowed=True)
 # ------------------------------------------------------------------------- #
 __C.FCOS = CN()
 __C.FCOS.FCOS = False
+
+# convolutional filters used in cls and bbox tower
+__C.FCOS.NUM_CONVS = 4
+# the number of classes include background
+__C.FCOS.NUM_CLASSES = 81
+# prior probability
+__C.FCOS.PRIOR_PROB = 0.01
+__C.FCOS.STRIDES = [8, 16, 32, 64, 128]
+
 # __C.FCOS
 
 # ------------------------------------------------------------------------ #

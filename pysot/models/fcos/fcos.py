@@ -15,11 +15,11 @@ class FCOSHead(nn.Module):
             in_channels: number of channels of the input feature
         '''
         super(FCOSHead, self).__init__()
-        num_classes = cfg.MODEL.FCOS.NUM_CLASSES - 1
+        num_classes = cfg.FCOS.NUM_CLASSES - 1
 
         cls_tower = []
         bbox_tower = []
-        for i in range(cfg.MODEL.FCOS.NUM_CONVS):
+        for i in range(cfg.FCOS.NUM_CONVS):
             cls_tower.append(
                 nn.Conv2d(
                     in_channels, 
@@ -66,7 +66,7 @@ class FCOSHead(nn.Module):
                     nn.init.constant_(l.bias, 0)
 
         # initialize the bias for focal loss
-        prior_prob = cfg.MODEL.FCOS.PRIOR_PROB
+        prior_prob = cfg.FCOS.PRIOR_PROB
         bias_value = -math.log((1-prior_prob)/prior_prob)
         torch.nn.init.constant_(self.cls_logits.bias, bias_value)
 
@@ -100,7 +100,7 @@ class FCOSModule(nn.Module):
         self.box_selector_test = make_fcos_postprocessor(cfg)
         self.loss_evaluator = make_fcos_loss_evaluator(cfg)
         
-        self.fpn_strides = cfg.MODEL.FCOS.FPN_STRIDES
+        self.fpn_strides = cfg.FCOS.STRIDES
 
     def forward(self, images, features, targets=None):
         '''

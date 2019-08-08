@@ -14,6 +14,7 @@ from pysot.models.backbone import get_backbone
 from pysot.models.head import get_rpn_head, get_mask_head, get_refine_head
 from pysot.models.neck import get_neck
 from pysot.models.fcos import get_fcos
+from pysot.models.fcos.imagelist import to_image_list
 
 
 class ModelBuilder(nn.Module):
@@ -29,8 +30,8 @@ class ModelBuilder(nn.Module):
             self.neck = get_neck(cfg.ADJUST.TYPE,
                                  **cfg.ADJUST.KWARGS)
 
-        # if cfg.FCOS.FCOS:
-        #     self.fcos = get_fcos(cfg, cfg.BACKBONE.OUTPUT_CHANNEL_SIZE)
+        if cfg.FCOS.FCOS:
+            self.fcos = get_fcos(cfg, cfg.BACKBONE.OUTPUT_CHANNEL_SIZE)
         
         # build rpn head
         if cfg.RPN.RPN:
@@ -98,7 +99,11 @@ class ModelBuilder(nn.Module):
         if cfg.ADJUST.ADJUST:
             zf = self.neck(zf)
             xf = self.neck(xf)
-        cls, loc = self.rpn_head(zf, xf)
+        if cfg.FCOS.FCOS:
+            fimages = to_image_list(data)
+            cls, loc = self.fcos()
+        else:
+            cls, loc = self.rpn_head(zf, xf)
 
         # get loss
         cls = self.log_softmax(cls)
