@@ -272,6 +272,8 @@ class TrkDataset(Dataset):
         return {
                 'template': template,
                 'search': search,
+                'z_bbox': _, 
+                'x_bbox': bbox,
                 'label_cls': cls,
                 'label_loc': delta,
                 'label_loc_weight': delta_weight,

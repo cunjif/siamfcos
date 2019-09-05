@@ -31,7 +31,7 @@ class ModelBuilder(nn.Module):
                                  **cfg.ADJUST.KWARGS)
 
         if cfg.FCOS.FCOS:
-            self.fcos = get_fcos(cfg, cfg.BACKBONE.OUTPUT_CHANNEL_SIZE)
+            self.fcos_head = get_fcos(cfg, cfg.BACKBONE.OUTPUT_CHANNEL_SIZE)
         
         # build rpn head
         if cfg.RPN.RPN:
@@ -85,6 +85,8 @@ class ModelBuilder(nn.Module):
         """
         template = data['template'].cuda()
         search = data['search'].cuda()
+        z_bbox = data['z_bbox'].cuda()
+        x_bbox = data['x_bbox'].cuda()
         label_cls = data['label_cls'].cuda()
         label_loc = data['label_loc'].cuda()
         label_loc_weight = data['label_loc_weight'].cuda()
@@ -100,8 +102,7 @@ class ModelBuilder(nn.Module):
             zf = self.neck(zf)
             xf = self.neck(xf)
         if cfg.FCOS.FCOS:
-            fimages = to_image_list(data)
-            cls, loc = self.fcos()
+            cls, loc = self.fcos_head(zf, xf, z_bbox, x_bbox)
         else:
             cls, loc = self.rpn_head(zf, xf)
 

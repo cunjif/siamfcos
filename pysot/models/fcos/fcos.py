@@ -178,6 +178,10 @@ class FCOSModule(nn.Module):
         return locations
 
 
+class FCOSExtractor:
+    def __init__(self, cfg, in_channels):
+        pass
+
 def build_fcos(cfg, in_channels):
     return FCOSModule(cfg, in_channels)
 
