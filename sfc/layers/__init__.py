@@ -19,6 +19,7 @@ from .sigmoid_focal_loss import SigmoidFocalLoss
 from .iou_loss import IOULoss
 from .scale import Scale
 from .make_layers import conv_with_kaiming_uniform
+from .make_layers import group_norm
 
 
 __all__ = ["nms", "roi_align", "ROIAlign", "roi_pool", "ROIPool",

@@ -22,10 +22,10 @@ import torch
 import torch.nn.functional as F
 from torch import nn
 
-from fcos_core.layers import FrozenBatchNorm2d
-from fcos_core.layers import Conv2d
-from fcos_core.modeling.make_layers import group_norm
-from fcos_core.utils.registry import Registry
+from sfc.layers import FrozenBatchNorm2d
+from sfc.layers import Conv2d
+from sfc.layers import group_norm
+from sfc.utils.registry import Registry
 
 
 # ResNet stage specification

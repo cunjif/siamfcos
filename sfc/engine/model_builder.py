@@ -12,7 +12,7 @@ from sfc.matcher import build_matcher
 
 
 class SiamTracker(nn.Module):
-    def __init__(self):
+    def __init__(self, cfg):
         super(SiamTracker, self).__init__()  
 
         self.backbone = build_backbone(cfg)
@@ -20,11 +20,12 @@ class SiamTracker(nn.Module):
         if cfg.MODEL.NECK.USE:
             self.neck = build_neck(cfg, self.backbone.output_channels)
 
-        self.matcher = build_matcher(cfg, self.neck.output_channels)
+        out_channels = self.neck.output_channels if cfg.MODEL.NECK.USE else self.backbone.output_channels
+        self.matcher = build_matcher(cfg, output_channels)
         # self.roi_header(build_match)
 
     def forward(self, x, targets):
         pass
 
-def build_model(cfg):
+def build_fcos(cfg):
     return SiamTracker(cfg)
