@@ -1,9 +1,5 @@
 import torch.distributed as dist
 
-def init_dist():
-    pass
-
-
 def reduce_gradients():
     pass
 
@@ -13,11 +9,15 @@ def average_reduce():
 
 
 def get_rank():
-    pass
+    return dist.get_rank()
 
 
 def get_word_size():
-    pass
+    if not dist.is_available():
+        return 1
+    if not dist.is_initialized():
+        return 1
+    return dist.get_rank()
 
 
 class DistModule():
