@@ -21,7 +21,7 @@ class SiamTracker(nn.Module):
             self.neck = build_neck(cfg, self.backbone.output_channels)
 
         out_channels = self.neck.output_channels if cfg.MODEL.NECK.USE else self.backbone.output_channels
-        self.matcher = build_matcher(cfg, output_channels)
+        self.matcher = build_matcher(cfg, out_channels)
         # self.roi_header(build_match)
 
     def forward(self, x, targets):

@@ -26,9 +26,13 @@ from torch.utils.data.distributed import DistributedSampler
 from sfc.data import build_data_loader
 from sfc.optims import (
     build_lr_scheduler,
-    
 )
-from sfc.utils.logger import init_log, print_speed, add_file_handler
+from sfc.utils.logger import (
+    add_file_handler,
+    init_log,
+    print_speed,
+
+)
 from sfc.utils.distributed import (
     dist_init, 
     DistModule, 
@@ -37,7 +41,10 @@ from sfc.utils.distributed import (
     get_rank, 
     get_world_size
 )
+from sfc.optims.lr_scheduler import build_lr_scheduler
+from sfc.optims.average_meter import AverageMeter
 from sfc.engine import build_model
+from sfc.utils.describe import describe
 from sfc.config import cfg
 # from pysot.utils.average_meter import AverageMeter
 # from pysot.utils.misc import describe, commit
@@ -287,13 +294,13 @@ def main(conf, seed, local_rank):
 
     # create model
     model = build_model(cfg)
-    dist_model = DistModule(model)
+    # dist_model = DistModule(model)
 
     # load pretrained backbone weights
-    if cfg.BACKBONE.PRETRAINED:
-        cur_path = opath.dirname(os.path.realpath(__file__))
-        backbone_path = os.path.join(cur_path, '../', cfg.BACKBONE.PRETRAINED)
-        load_pretrain(model.backbone, backbone_path)
+    # if cfg.BACKBONE.PRETRAINED:
+    #     cur_path = opath.dirname(os.path.realpath(__file__))
+    #     backbone_path = os.path.join(cur_path, '../', cfg.BACKBONE.PRETRAINED)
+        # load_pretrain(model.backbone, backbone_path)
 
     # create tensorboard writer
     if rank == 0 and cfg.TRAIN.LOG_DIR:
@@ -316,8 +323,8 @@ def main(conf, seed, local_rank):
         model, optimizer, cfg.TRAIN.START_EPOCH = \
             restore_from(model, optimizer, cfg.TRAIN.RESUME)
     # load pretrain
-    elif cfg.TRAIN.PRETRAINED:
-        load_pretrain(model, cfg.TRAIN.PRETRAINED)
+    # elif cfg.TRAIN.PRETRAINED:
+    #     load_pretrain(model, cfg.TRAIN.PRETRAINED)
     dist_model = DistModule(model)
 
     logger.info(lr_scheduler)
