@@ -24,6 +24,7 @@ from torch.nn.utils import clip_grad_norm_
 from torch.utils.data.distributed import DistributedSampler
 
 from sfc.data import build_data_loader
+from torch.utils.data import DataLoader
 from sfc.optims import (
     build_lr_scheduler,
 )
@@ -45,6 +46,8 @@ from sfc.optims.lr_scheduler import build_lr_scheduler
 from sfc.optims.average_meter import AverageMeter
 from sfc.engine import build_model
 from sfc.utils.describe import describe
+from sfc.utils.model_loader import restore_from
+from sfc.data.dataset import TrkDataset
 from sfc.config import cfg
 # from pysot.utils.average_meter import AverageMeter
 # from pysot.utils.misc import describe, commit
