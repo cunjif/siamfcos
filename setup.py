@@ -30,7 +30,7 @@ requirements = (
 )
 
 def get_extension():
-    extensions_dir = os.path.join("maskrcnn_benchmark", "csrc")
+    extensions_dir = os.path.join("sfc", "csrc")
 
     main_file = glob.glob(os.path.join(extensions_dir, "*.cpp"))
     source_cpu = glob.glob(os.path.join(extensions_dir, "cpu", "*.cpp"))
@@ -57,45 +57,25 @@ def get_extension():
 
     ext_modules = [
         extension(
-            "maskrcnn_benchmark._C",
+            "sfc._C",
             sources,
             include_dirs=include_dirs,
             define_macros=define_macros,
             extra_compile_args=extra_compile_args
         ),
-        extension(
-            name='toolkit.utils.region',
-            sources=[
-                'toolkit/utils/region.pyx',
-                'toolkit/utils/src/region.c',
-            ],
-            include_dirs=[
-                'toolkit/utils/src'
-            ]
-        )
+        # extension(
+        #     name='toolkit.utils.region',
+        #     sources=[
+        #         'toolkit/utils/region.pyx',
+        #         'toolkit/utils/src/region.c',
+        #     ],
+        #     include_dirs=[
+        #         'toolkit/utils/src'
+        #     ]
+        # )
     ]
 
     return ext_modules
-
-# ext_modules = [
-#     Extension(
-#         name='toolkit.utils.region',
-#         sources=[
-#             'toolkit/utils/region.pyx',
-#             'toolkit/utils/src/region.c',
-#         ],
-#         include_dirs=[
-#             'toolkit/utils/src'
-#         ]
-#     )
-# ]
-
-# setup(
-#     name='toolkit',
-#     packages=['toolkit'],
-#     ext_modules=cythonize(ext_modules)
-# )
-
 
 setup(
     name='toolkit',
