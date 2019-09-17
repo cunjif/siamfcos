@@ -11,7 +11,7 @@ MODEL:
     USE_C5: False # FCOS uses P5 instead of C5
 DATASETS:
   TRAIN: ("coco_2017_train")
-  TEST: ("coco_2014_minival",)
+  TEST: ("coco_2014_minival")
 INPUT:
   MIN_SIZE_RANGE_TRAIN: (640, 800)
   MAX_SIZE_TRAIN: 1333
