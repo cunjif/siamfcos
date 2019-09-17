@@ -1,3 +1,4 @@
+# CopyRight (C) https://github.com/tianzhi0549/FCOS and it alliances. All Rights Reserved.
 """
 This file contains specific functions for computing losses of FCOS
 file
